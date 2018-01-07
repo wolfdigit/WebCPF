@@ -43,7 +43,7 @@ a {
 	font-size: 14pt;
 	cursor: pointer;
 	margin: 4px 0px 0px 0px;
-	margin-left: 20%;
+	/* margin-left: 20%; */
 	padding: 4px 10px 0px 10px;
 	z-index: 8;
 	color: #33CCFF;

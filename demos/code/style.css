@@ -82,7 +82,7 @@ td.tabon {
   border-bottom-color: #ddd !important;
   background-color: #ddd;
   padding: 5px 19px;
-  width: 30%;
+  /* width: 30%; */
 }
 td.taboff {
   cursor: pointer;

@@ -245,7 +245,7 @@ Code.LANG = Code.getLang();
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['blocks', 'javascript','xml'];
+Code.TABS_ = ['blocks', 'xml', 'javascript', 'javascriptEd'];
 
 Code.selected = 'blocks';
 
@@ -580,6 +580,7 @@ Code.runJS = function() {
   if ((currentClickTime - lastClickTime) < clickTimeDelta) return;
 
   var code = Blockly.JavaScript.workspaceToCode(Code.workspace);
+  if (Code.selected=='javascriptEd') code = document.getElementById('content_javascriptEd').value;
   //cpf.blocklyCon(code);
   //alert(code);  //for Android
   var pinreset = code.split('\n')[0].replace('cpf.pinreset("','{"request":[').replace('");',']}').replace(/\\/g,'');

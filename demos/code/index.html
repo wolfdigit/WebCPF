@@ -93,8 +93,9 @@
           <tr id="tabRow" height="1em">
             <td id="tab_blocks" class="tabon">...</td>
 <!--            <td class="tabmin">&nbsp;</td> !-->
-            <td hidden id="tab_javascript" class="taboff">JavaScript</td>
-              <td hidden id="tab_xml" class="tabon">XML</td>
+            <td id="tab_javascript" class="taboff">JavaScript</td>
+            <td id="tab_javascriptEd" class="taboff">JS(edit)</td>
+              <td id="tab_xml" class="taboff">XML</td>
             <td class="tabmin">
               <button id="runButton" class="tabIcon primary" title="...">
                 <i class="fa fa-play fa-fw" aria-hidden="true"></i>
@@ -140,6 +141,7 @@
   </table>
   <div id="content_blocks" class="content"></div>
   <pre id="content_javascript" class="content"></pre>
+  <textarea id="content_javascriptEd" class="content" wrap="off"></textarea> 
 <!--  <pre id="content_python" class="content"></pre>
   <pre id="content_php" class="content"></pre>
   <pre id="content_lua" class="content"></pre>
