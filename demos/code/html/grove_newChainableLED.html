@@ -1,0 +1,26 @@
+<div id="RGB_block" class="sensor_block">
+	<img class="sensor_img" src="./images/ic_control_rgbled.png" />
+	<table class="RGB_content">
+		<tr>
+			<td></td>
+			<td>RGB LED燈元件</td>
+		</tr>
+		<tr class="RGB_value">
+			<td>R</td>
+			<td><input type="range" id="rled" value="0" min="0" max="255" oninput="changeRGB('r')"></td>
+			<td id="rvalue">0</td>
+		</tr>
+		<tr class="RGB_value">
+			<td>G</td>
+			<td><input type="range" id="gled" value="0" min="0" max="255" oninput="changeRGB('g')"></td>
+			<td id="gvalue">0</td>
+		</tr >
+		<tr class="RGB_value">
+			<td>B</td>
+			<td><input type="range" id="bled" value="0" min="0" max="255" oninput="changeRGB('b')"></td>
+			<td id="bvalue">0</td>
+		</tr>
+	</table>
+	<span class="sensor_name" style="display:none;"></span>
+	<span class="sensor_value" style="display:none;"></span>
+</div>

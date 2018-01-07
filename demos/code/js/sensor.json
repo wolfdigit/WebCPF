@@ -1,0 +1,17 @@
+{
+	"光感測裝置" : "lightsensor",
+	"溫度感測裝置" : "temperature",
+	"白光LED" : "cpfled",
+	"風扇" : "cpffan",
+	"紅外線人體感測裝置" : "d6_PIR",
+	"蜂鳴器" : "d5_buzzer",
+	"磁簧開關裝置" : "d6_magnetswitch",
+	"壓電式震動感測裝置" : "a2_piezo",
+	"聲音感測裝置" : "a0_sound",
+	"繼電器" : "d2_relay",
+	"DHT11溫溼度感測器" : "dht11",
+	"土壤濕度感測裝置" : "a0_mois",
+	"水滴感測裝置" : "a0_water",
+	"伺服馬達" : "d4_servo",
+	"按鈕裝置" : "d6_button"
+}

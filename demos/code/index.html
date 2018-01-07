@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" value="notranslate">
+  <title></title>
+  <link rel="Shortcut Icon" type="image/x-icon" href="./blockly.ico">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lesson.css">
+  <link rel="stylesheet" href="font-awesome.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!--<script src="/storage.js"></script> -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+
+  <script src="code.js"></script> 
+  
+</head>
+<body>
+	
+	<!-- Control Panel -->
+	<div id="bg_dark" onclick="backToBlockly()"></div>
+	<div id="control_panel">
+		<center>
+			<div id="top">
+				<a onclick="backToBlockly()" id="prev_page"><-</a>
+				<font id="top_title">...</font>
+			</div>
+			<div id="header">
+				<span id="header_title"></span>
+			</div>
+			<div id="content">
+				<!--component code here-->
+			</div>
+			<div id="bottom"></div>
+		</center>
+	</div>
+	<!---------------------->
+
+	<!-- CPF Panel -->
+	<div id="cpf_panel">
+		<div id="cpf_title">
+			...
+		</div>
+		<div id="cpf_match">
+			<!-------CPF search result-------->
+		</div>
+	</div>
+	<!---------------------->
+	
+	<!-- User Panel-->
+	<div id="user_panel">
+	<center>
+		<form style="margin-left: -15px;">
+			<h3 id="login_title">...</h3>
+			<input type="radio" name="platform" value="FB" id="fb" checked />
+			<label for="fb"><img style="width: 20%;" src="./images/fb_icon.png" /></label>
+			<input type="radio" name="platform" value="GP" id="gp" />
+			<label for="gp"><img style="width: 20%;" src="./images/gp_icon.png" /></label>
+			<br><br>
+			<font id="login_act">...</font><br>
+			<input type="email" />
+			<button type="button" onclick="user.login(this.parentNode)" id="login_btn">...</button>
+			<br><span id="loginShow" style="color: red; font-size: 12pt;"></span>
+		</form>
+	</center>
+	</div>
+	<!---------------------->
+	
+	<!-- Cloud Panel-->
+	<div id="cloud_panel">
+		<div id="cloud_title">...</div>
+		<table>
+			<!-- Cloud List -->
+		</table>
+	</div>
+	<!---------------------->
+	 
+  <table width="100%" height="100%">
+    <tr hidden>
+      <td>
+        <h1> <span id="title"></span></h1>
+      </td>
+      <td class="farSide">
+        <select id="languageMenu"></select>
+      </td>
+    </tr> 
+    <tr>
+      <td colspan=2>
+        <table width="100%">
+          <tr id="tabRow" height="1em">
+            <td id="tab_blocks" class="tabon">...</td>
+<!--            <td class="tabmin">&nbsp;</td> !-->
+            <td hidden id="tab_javascript" class="taboff">JavaScript</td>
+              <td hidden id="tab_xml" class="tabon">XML</td>
+            <td class="tabmin">
+              <button id="runButton" class="tabIcon primary" title="...">
+                <i class="fa fa-play fa-fw" aria-hidden="true"></i>
+              </button>
+              <button id="undoButton" class="tabIcon" title="...">
+                <i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i>
+              </button>
+              <button id="redoButton" class="tabIcon" title="...">
+                <i class="fa fa-arrow-right fa-fw" aria-hidden="true"></i>
+              </button>
+              <button id="trashButton" class="tabIcon" title="...">
+                <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>
+              </button>
+              <button id="linkButton" class="tabIcon" title="...">
+                <i class="fa fa-refresh fa-fw" aria-hidden="true"></i> 
+              </button>  
+              <button id="xmlCloudStore" class="tabIcon" title="...">
+                <img src='../../media/cpfcloud22x18.png'></button> 
+              <ul id="cpfbutton">
+				<font id="cpf_icon">...</font><img src="./images/cpf.png" /><img id="cpf_check" src="./images/no.png">
+				<li id="cpf_info">
+					<table>
+						<tr><td id="cpf_mac_title">...</td> <td class="cpfinfo" id="cpf_mac"></td></tr>
+						<tr><td id="cpf_ver_title">...</td> <td class="cpfinfo" id="cpf_ver"></td></tr>
+						<tr><td id="cpf_ip_title">...</td> <td class="cpfinfo" id="cpf_ip"></td></tr>
+						<tr><td id="cpf_wifi_title">...</td> <td class="cpfinfo" id="cpf_wifi"></td></tr>
+					</table>
+					<button id="CPFsearch" onclick="cpfPanel()">...</button>
+				</li>
+			  </ul>
+			  <button onclick="userPanel()" id="userButton" class="tabIcon">
+				<i class="fa fa-user fa-fw" aria-hidden="true"></i>
+			  </button>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="99%" colspan=2 id="content_area">
+      </td>
+    </tr>
+  </table>
+  <div id="content_blocks" class="content"></div>
+  <pre id="content_javascript" class="content"></pre>
+<!--  <pre id="content_python" class="content"></pre>
+  <pre id="content_php" class="content"></pre>
+  <pre id="content_lua" class="content"></pre>
+  <pre id="content_dart" class="content"></pre>  !-->
+  <textarea id="content_xml" class="content" wrap="off"></textarea> 
+
+  <xml id="toolbox" style="display: none">
+<!--  CPF Hardware dependence here         !-->    
+ 	
+   <category id="catCPF" colour="110">
+   <category id="catCPFDevices" colour="110">
+        <block type="cpf_control_repeat"></block>
+        <block type="cpf_lightsensor_get"></block>
+        <block type="cpf_temperature_get"></block>
+        <block type="cpf_led_onoff"></block>        
+<!--        <block type="cpf_led_set"></block>  !-->
+        <block type="cpf_led_manaul_set">
+             <value name="VALUE">
+             <block type="cpf_led_onoff">
+                   <field name="BOOL">OFF</field>
+             </block>
+             </value>
+        </block>     
+        <block type="cpf_fan_set">
+             <value name="VALUE">
+             <block type="math_number">
+                   <field name="NUM">100</field>
+             </block>
+             </value>
+        </block>
+        <block type="cpf_fan_level_set"></block>
+        <block type="cpf_rgbled_set_colour">
+            <value name="LEDCOLOUR">
+		          <block type="colour_picker">
+		            <field name="COLOUR">#ff0000</field>
+		          </block>
+            </value>
+        </block>
+<!--        <block type="cpf_rgbled_set">
+            <value name="RED">
+                <block type="math_number">
+                    <field name="NUM">255</field>
+                </block>
+            </value>
+            <value name="GREEN">
+            <block type="math_number">
+                <field name="NUM">255</field>
+            </block>
+            </value>    		
+            <value name="BLUE">
+            <block type="math_number">
+                <field name="NUM">255</field>
+            </block>
+            </value>    		
+       </block>   !-->
+    </category>    	
+   <category id="catCPFUI" colour="125">
+    	<block type="cpf_title_ui_set">
+        <value name="VALUE">
+          <block type="text">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+      </block>  
+    	<block type="cpfaop_content_ui_set">
+    		    <value name="VALUE">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+      </block>
+    	<block type="cpf_temperature_ui_set">
+        <value name="VALUE">
+          <block type="text">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+      </block>  
+    	<block type="cpf_light_ui_set">
+        <value name="VALUE">
+          <block type="text">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+      </block>  
+    	<block type="cpf_fanspeed_ui_get"></block>
+    	<block type="cpf_whiteled_ui_get"></block>
+    	<block type="cpf_rgbled_ui_get"></block>
+        <block type="cpf_inout_ui_get"></block>       
+        <block type="cpf_inout_ui_analog_write" x="63" y="38">
+             <field name="PIN">D2</field>
+                <value name="Value">
+         <block  type="math_number">
+              <field name="NUM">0</field>
+         </block>
+                </value>
+        </block>             
+    </category>
+   <category id="catCPFAOP" colour="135">
+    	<block type="cpfaop_date_get"></block>
+    	<block type="cpf_delay_time">
+            <value name="VALUE">
+                <block type="math_number">
+                    <field name="NUM">5000</field>
+                </block>
+            </value>
+    	</block>
+    	<block type="cpfaop_json_data">
+            <value name="VALUE1">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+            <value name="VALUE2">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+            <value name="VALUE3">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>    		
+    	</block>
+      <block type="cpfaop_jsondata_parse">
+		    <field name="VALUEID">value1</field>
+		    <value name="JSONDATA">
+		      <block type="text">
+		        <field name="TEXT"></field>
+		      </block>
+		    </value>
+      </block>
+    	<block type="cpfaop_jsondata_upload">
+            <value name="RECORDID">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="VALUE">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>    		
+    	</block>
+    	<block type="cpfaop_jsondata_download">
+		      <value name="RECORDID">
+		          <block type="math_number">
+		              <field name="NUM">0</field>
+		          </block>
+		      </value>
+		  </block>
+
+<!--    	<block type="cpfaop_content_upload">
+            <value name="RECORDID">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+            <value name="VALUE1">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+            <value name="VALUE2">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+            <value name="VALUE3">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>    		
+    		</block>   !-->
+   </category>
+   </category>
+     <sep></sep>
+   <category id="catHardwaeDevices" colour="140">
+   <category id="catInOut" colour="140">
+    <category id="catDigital" colour="140">
+        <block type="inout_highlow"></block>
+        <block type="inout_digital_read"></block>       
+        <block type="inout_digital_write"></block>       
+    </category>
+    <category id="catAnalog" colour="140">
+        <block type="inout_analog_read"></block>
+        <block type="inout_analog_write" x="63" y="38">
+             <field name="PIN">D3</field>
+                <value name="Value">
+         <block  type="math_number">
+              <field name="NUM">0</field>
+         </block>
+                </value>
+        </block>             
+    </category>
+  </category>     
+    <category id="catCPFInDevices" colour="140"> 
+    <category id="catCPFInEnvironment" colour="145">
+<!--     <block type="cpf_ext_lightsensor_get"></block>
+     <block type="cpf_tempsensor_get"></block>  
+     <block type="cpf_loudness_get"></block>
+     <block type="cpf_uvsensor_get"></block>
+     <block type="cpf_luminanace_get"></block>
+     <block type="cpf_flamesensor_get"></block>
+     <block type="cpf_sensors_tcs34725"></block>
+     <block type="cpf_ds18b20_get"></block>
+     <block type="cpf_sensor_dht22"></block>    !-->
+     <block type="cpf_pir_get"></block>
+     <block type="cpf_soundsensor_get"></block>
+     <block type="cpf_sensor_dht11"></block>
+     <block type="cpf_watersensor_get"></block>
+     <block type="cpf_moisture_get"></block>
+    
+    </category>
+<!--    <category id="catCPFInGas" colour="150">
+     <block type="cpf_alcohol_get"></block>
+     <block type="cpf_mq3_get"></block>
+     <block type="cpf_o2_get"></block>
+     <block type="cpf_mq2_get"></block>
+     <block type="cpf_mq5_get"></block>
+     <block type="cpf_mq9_get"></block>
+     <block type="cpf_hcho_get"></block>
+     <block type="cpf_co2sensor_get"></block>
+     <block type="cpf_pm25_get"></block>         
+
+     </category>                                !-->
+    <category id="catCPFInSwitch" colour="155">  
+     <block type="cpf_button_get"></block>
+     <block type="cpf_magnet_switch_get"></block>
+     <block type="cpf_piezo_vibration_get"></block>
+<!--     <block type="cpf_switch_get"></block>
+     <block type="cpf_tilt_switch_get"></block>
+     <block type="cpf_touch_sensor_get"></block>
+     <block type="cpf_slide_vr_get"></block>
+     <block type="cpf_rotary_vr_get"></block>
+     <block type="cpf_joystick_x_get"></block>
+     <block type="cpf_joystick_y_get"></block>
+     <block type="cpf_collision_get"></block>     !-->
+
+    </category>
+<!--    <category id="catCPFInIRPowerSensor" colour="160">
+     <block type="cpf_pir_get"></block>
+     <block type="cpf_ir_temperature_get"></block>
+     <block type="cpf_linefinder_get"></block>
+     <block type="cpf_sharpir_get"></block>
+     <block type="cpf_ultrasonic_distance"></block>
+     <block type="cpf_skingsr_get"></block>
+     <block type="cpf_muscle_emg_get"></block>
+     <block type="cpf_electricity_get"></block>
+     <block type="cpf_div_get"></block>
+     <block type="cpf_adxl345_get"></block>        
+
+     </category>                    !-->
+    </category>
+    
+    <category id="catCPFOutDevices" colour="180">  
+    <category id="catCPFOutSoundLight" colour="185">
+<!--    <block type="cpf_white_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_red_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_green_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_blue_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_purple_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_ledbar_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_recorder_recording"></block>     
+    <block type="cpf_recorder_play"></block>     
+    <block type="cpf_led_string_light_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_led_strip_driver_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_rgb_color_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_color_flash_led_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>                                !-->
+      
+        <block type="cpf_buzzer_tone"></block>
+        <block type="cpf_custom_tone">
+            <value name="FREQ">
+                <block type="math_number">
+                    <field name="NUM">255</field>
+                </block>
+            </value>
+            <value name="DURATION">
+                <block type="math_number">
+                    <field name="NUM">300</field>
+                </block>
+            </value>
+        </block>
+        <block type="cpf_no_tone"></block>
+     </category>
+     
+    <category id="catCPFOutRelay" colour="190">
+<!--    <block type="cpf_electro_magnet_out">
+        <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+
+    </block>     
+    <block type="cpf_2_coillatch_relay_out"></block>     
+    <block type="cpf_mosfet_relay_out"></block>     
+    <block type="cpf_dryreed_relay_out"></block>     
+    <block type="cpf_spdt_relay_out"></block>         !-->
+    <block type="cpf_relay_out"></block>     
+    
+      </category>
+    <category id="catCPFOutMotors" colour="195"> 
+    <block type="cpf_servo_move">
+    <value name="DEGREE">
+      <block type="math_number">
+        <field name="NUM">90</field>
+      </block>
+    </value>
+    <value name="DELAY_TIME">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    </block>     
+<!--    <block type="cpf_vibration_motor">
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>    
+    </block>     
+    <block type="cpf_mini_fan_motor">
+       <value name="FanSpeed">
+       <block type="math_number">
+           <field name="NUM">100</field>
+       </block>
+       </value>
+      </block>              !-->
+     </category>
+      <category id="catCPFOutDisplay" colour="200">        
+       <block type="cpf_i2clcd_set_backlight">
+        <value name="RED">
+            <block type="math_number">
+                <field name="NUM">255</field>
+            </block>
+        </value>
+        <value name="GREEN">
+            <block type="math_number">
+                <field name="NUM">255</field>
+            </block>
+        </value>
+        <value name="BLUE">
+            <block type="math_number">
+                <field name="NUM">255</field>
+            </block>
+        </value>
+       	</block>
+       <block type="cpf_i2clcd_print">
+        <value name="COL">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+        <value name="ROW">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+            <value name="PRINT">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+       </block>
+       
+<!--       <block type="cpf_i2clcd_custom_setcursor">
+        <value name="COL">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+        <value name="ROW">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+       	</block>          !-->
+       <block type="cpf_i2clcd_clear"></block>
+    <block type="cpf_i2clcd_display"></block>     
+
+<!--       <block type="cpf_tm1637led_setting">
+        <value name="D1">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+        <value name="D2">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+        <value name="D3">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+        <value name="D4">
+            <block type="math_number">
+                <field name="NUM">0</field>
+            </block>
+        </value>
+       	</block>
+        <block type="cpf_tm1637led_clear_display"></block>         !-->
+
+      </category>
+   </category>          
+    </category>
+      <sep></sep>
+  
+    <category id="catLogic" colour="210">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category id="catLoops" colour="120">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+<!--      <block type="controls_whileUntil"></block>  !-->
+<!--      <block type="controls_whileTrue"></block>   !-->
+      <block type="controls_for">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category id="catMath" colour="230">
+      <block type="math_number"></block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constant"></block>
+      <block type="math_number_property">
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_change">
+        <value name="DELTA">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constrain">
+        <value name="VALUE">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="LOW">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="HIGH">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+    </category>
+    <category id="catText" colour="160">
+      <block type="text"></block>
+      <block type="text_newline"></block>
+     <block type="text_join"></block>
+      <block type="text_append">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_prompt_ext">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category id="catLists" colour="260">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">list</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_sort"></block>
+    </category>
+    <category id="catColour" colour="20">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="colour_blend">
+        <value name="COLOUR1">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="COLOUR2">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#3333ff</field>
+          </shadow>
+        </value>
+        <value name="RATIO">
+          <shadow type="math_number">
+            <field name="NUM">0.5</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <sep></sep>
+    <category id="catVariables" colour="330" custom="VARIABLE"></category>
+    <category id="catFunctions" colour="290" custom="PROCEDURE"></category>
+    <sep></sep>
+    
+  </xml>
+	
+	<!-- Andy's JS file -->
+	<script src="./js/md5.js"></script>
+	<script src="./js/effect.js"></script>
+	<script src="./js/cpfcomponent.js"></script>
+	<script src="./js/cpfconnect.js"></script>
+	<script src="./js/cpf_get.js"></script>
+	<script src="./js/cloudprofessor.js"></script>
+	<!---------------------->
+	
+</body>
+</html>

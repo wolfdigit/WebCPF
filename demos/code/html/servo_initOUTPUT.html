@@ -1,0 +1,39 @@
+<style>
+
+#servo_block {
+	height: 130px;
+}
+
+#servo_block .sensor_value {
+	float: left;
+	position: absolute;
+	top: 65px;
+	left: 135px;
+}
+
+#servo_block .sensor_value::-webkit-slider-thumb {
+	background: #00FF00;
+}
+
+#servo_block .sensor_img {
+	top: 15px;
+}
+
+#servo_block .sensor_name {
+	top: 20px;
+}
+
+#servo_block .pwm_value {
+	position: relative;
+	font-size: 18pt;
+	float: left;
+	top: 50px;
+	left: 320px;
+}
+</style>
+
+<div id="servo_block" class="sensor_block">
+	<img class="sensor_img" src="" />
+	<div class="sensor_name">伺服馬達</div>
+	<input type="range" class="sensor_value" value="0" min="0" max="180" oninput="changePWM(this, 'servo')" />
+	<span style="margin-left: -55px;" class="pwm_value">0</span></div>
